@@ -47,18 +47,16 @@ export default class Form extends Component{
         this.reset();
     }
 
-    edit=(props)=>{
+    edit=()=>{
         let {name, price, imgurl}=this.state;
         let id=this.props.selected
         let newProduct={name, price, imgurl};
-        this.update(id, newProduct);
+        console.log(1111111,this.update(id, newProduct));
         this.reset();
     }
 
     update=(id, newProduct)=>{
-        axios.put(`/api/products/${id}`, newProduct).then(res => {
-            this.props.get();
-           })
+        axios.put(`/api/products/${id}`, newProduct)
       }
 
     reset=()=>{
