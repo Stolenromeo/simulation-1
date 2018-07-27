@@ -1,16 +1,16 @@
 const express= require('express')
 const bodyPars= require('body-parser')
-const Ctrl= require('./controller')
 const massive= require('massive')
 require('dotenv').config()
 
 const app=express();
-const port=4000
-
 app.use(bodyPars.json())
+const port=3030;
+
 
 massive(process.env.CONNECTION_STRING).then(db=> app.set('db', db)).catch(err=>{console.log("there was an error connecting to DB:", err)
 })
+const Ctrl= require('./controller')
 
 app.get('/api/products',Ctrl.read)
 app.put('/api/products/:id',Ctrl.update)

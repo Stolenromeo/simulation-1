@@ -12,24 +12,20 @@ class App extends Component {
   constructor(){
     super()
     this.state={
-      inventory: []
+      inventory: [],
+      selectedid: null
     }
   }
 
-  componentDidMount() {
+  componentDidMount=()=> {
     axios.get('/api/products').then(res=>{
         this.setState({inventory:res.data})
     })
-    console.log(this.state.inventory)
 }
 
-  display=()=>{
-    this.state.inventory.map(elem=>{
-      return(
-        <div>
-          {elem}
-        </div>
-      )
+  setID=(id)=>{
+    this.setState({
+      selectedid: id
     })
   }
 
@@ -38,16 +34,17 @@ class App extends Component {
     if(!!newProduct)
     inventory.push(newProduct)
     this.setState({inventory})
-    console.log(this.state.inventory)
+    axios.post('/api/products', newProduct)
   }
+
+
 
   render() {
     return (
       <div className="App">
        <Header />
-       <Dashboard className="Dashboard" inventory={this.state.inventory}/>
-       <Form add={this.add} inventory={this.state.inventory} className="form"/>
-       <Product />
+       <Dashboard className="Dashboard" inventory={this.state.inventory} get={this.componentDidMount} setID={this.setID}/>
+       <Form add={this.add} inventory={this.state.inventory} className="form" selected={this.state.selectedid} update={this.state.update} get={this.componentDidMount}/>
       </div>
     );
   }
