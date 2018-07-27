@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
 
 import Dashboard from './Components/Dashboard/Dashboard'
 import Form from './Components/Form/Form'
@@ -17,8 +18,9 @@ class App extends Component {
 
   componentDidMount() {
     axios.get('/api/products').then(res=>{
-        this.setState({climbs:res.data})
+        this.setState({inventory:res.data})
     })
+    console.log(this.state.inventory)
 }
 
   display=()=>{
@@ -43,8 +45,8 @@ class App extends Component {
     return (
       <div className="App">
        <Header />
-       <Dashboard />
-       <Form add={this.add} inventory={this.state.inventory}/>
+       <Dashboard className="Dashboard" inventory={this.state.inventory}/>
+       <Form add={this.add} inventory={this.state.inventory} className="form"/>
        <Product />
       </div>
     );

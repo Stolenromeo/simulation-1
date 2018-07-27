@@ -4,9 +4,17 @@ export default class Dashboard extends Component{
 
 
 
-    render(){
+    render(props){
         return(
-        <div>Dashboard</div>
+        <div>
+            {this.props.inventory.map(elem=>{
+                return(
+                    <div>
+                        elem.
+                    </div>
+                )
+            })}
+        </div>
         )
     }
 }
